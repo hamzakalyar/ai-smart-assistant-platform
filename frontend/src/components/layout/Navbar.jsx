@@ -1,5 +1,5 @@
 /**
- * Navigation Bar Component
+ * Navigation Bar - Logo left, Auth buttons right
  */
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,77 +16,44 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="glass-card sticky top-0 z-50 border-b-0">
-            <div className="container mx-auto px-4">
-                <div className="flex items-center justify-between h-16">
-                    {/* Logo with gradient */}
+        <nav className="bg-white shadow-md sticky top-0 z-50">
+            <div className="container mx-auto px-6 py-4">
+                <div className="flex items-center justify-between">
+                    {/* Logo and Name - LEFT */}
                     <Link to="/" className="flex items-center space-x-3 group">
-                        <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                            <span className="text-white text-2xl font-bold">AI</span>
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <span className="text-white text-2xl font-bold">🤖</span>
                         </div>
-                        <span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                            MedBot
-                        </span>
+                        <span className="text-2xl font-bold text-gray-800">AI MedBot</span>
                     </Link>
 
-                    {/* Navigation Links */}
-                    <div className="hidden md:flex items-center space-x-8">
-                        <Link
-                            to="/symptom-checker"
-                            className="text-gray-700 font-medium hover:text-primary-600 transition-all duration-200 relative group"
-                        >
-                            Symptom Checker
-                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300"></span>
-                        </Link>
-                        <Link
-                            to="/chatbot"
-                            className="text-gray-700 font-medium hover:text-primary-600 transition-all duration-200 relative group"
-                        >
-                            Chatbot
-                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300"></span>
-                        </Link>
-                        {isAuthenticated && (
-                            <>
-                                <Link
-                                    to="/resume-analyzer"
-                                    className="text-gray-700 font-medium hover:text-primary-600 transition-all duration-200 relative group"
-                                >
-                                    Resume Analyzer
-                                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300"></span>
-                                </Link>
-                                <Link
-                                    to="/dashboard"
-                                    className="text-gray-700 font-medium hover:text-primary-600 transition-all duration-200 relative group"
-                                >
-                                    Dashboard
-                                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300"></span>
-                                </Link>
-                            </>
-                        )}
-                    </div>
-
-                    {/* Auth Buttons */}
+                    {/* Auth Buttons - RIGHT */}
                     <div className="flex items-center space-x-3">
                         {isAuthenticated ? (
                             <>
                                 <Link to="/profile">
-                                    <Button variant="ghost" size="sm" className="hover-lift">
-                                        👤 {user?.name}
+                                    <Button variant="ghost" size="sm">
+                                        <span className="flex items-center gap-2">
+                                            <span className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                                                {user?.name?.charAt(0).toUpperCase()}
+                                            </span>
+                                            {user?.name}
+                                        </span>
                                     </Button>
                                 </Link>
-                                <Button variant="outline" size="sm" onClick={handleLogout} className="hover-lift">
+                                <Button variant="outline" size="sm" onClick={handleLogout}>
                                     Logout
                                 </Button>
                             </>
                         ) : (
                             <>
                                 <Link to="/login">
-                                    <Button variant="ghost" size="sm" className="hover-lift">
+                                    <Button variant="ghost" size="sm">
                                         Login
                                     </Button>
                                 </Link>
                                 <Link to="/register">
-                                    <Button variant="primary" size="sm" className="hover-lift shadow-lg">
+                                    <Button variant="primary" size="sm" className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
                                         Sign Up
                                     </Button>
                                 </Link>

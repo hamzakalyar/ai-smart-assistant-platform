@@ -1,277 +1,181 @@
 /**
- * Home Page - Modern Interactive Design
+ * Home Page - Following User's Specifications
+ * 1. Top bar with logo left, auth buttons right ✓ (in Navbar)
+ * 2. Main section with 3D cube and Assistant name
+ * 3. Feature boxes that are clickable
  */
 
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { motion } from 'framer-motion';
-import Button from '../components/ui/Button';
-import Card from '../components/ui/Card';
+import './Home.css';
 
 const Home = () => {
     const { isAuthenticated } = useAuth();
 
     const features = [
         {
-            title: 'AI Symptom Checker',
-            description: 'Get instant AI-powered insights about your symptoms with severity classification.',
+            title: 'Symptom Checker',
+            description: 'Analyze your symptoms with AI and get instant health insights',
             icon: '🏥',
             link: '/symptom-checker',
-            gradient: 'from-blue-400 via-blue-500 to-blue-600',
+            color: 'from-blue-500 to-cyan-500',
+            bgColor: 'bg-blue-50',
+            borderColor: 'border-blue-200'
         },
         {
-            title: 'Smart Chatbot',
-            description: 'Ask health questions and get intelligent, context-aware AI responses.',
+            title: 'AI Chatbot',
+            description: 'Chat with our intelligent AI assistant for health guidance',
             icon: '💬',
             link: '/chatbot',
-            gradient: 'from-purple-400 via-purple-500 to-purple-600',
+            color: 'from-purple-500 to-pink-500',
+            bgColor: 'bg-purple-50',
+            borderColor: 'border-purple-200'
         },
         {
             title: 'Resume Analyzer',
-            description: 'Upload your resume and get AI feedback with ATS compatibility scoring.',
+            description: 'Get AI-powered feedback on your resume and improve it',
             icon: '📄',
             link: isAuthenticated ? '/resume-analyzer' : '/login',
-            gradient: 'from-green-400 via-green-500 to-green-600',
+            color: 'from-green-500 to-emerald-500',
+            bgColor: 'bg-green-50',
+            borderColor: 'border-green-200'
         }
     ];
 
-    // Animation variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2
-            }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                type: "spring",
-                stiffness: 100
-            }
-        }
-    };
-
     return (
-        <div className="min-h-screen">
-            {/* Hero Section */}
-            <motion.section
-                className="relative overflow-hidden bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-32"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
-            >
-                {/* Animated background shapes */}
-                <div className="absolute inset-0 overflow-hidden">
-                    <motion.div
-                        className="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            rotate: [0, 90, 0],
-                        }}
-                        transition={{
-                            duration: 20,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
-                    />
-                    <motion.div
-                        className="absolute -bottom-40 -left-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"
-                        animate={{
-                            scale: [1, 1.3, 1],
-                            rotate: [0, -90, 0],
-                        }}
-                        transition={{
-                            duration: 25,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
-                    />
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+
+            {/* Hero Section with Cube and Name */}
+            <section className="py-20">
+                <div className="container mx-auto px-6 text-center">
+                    {/* 3D Rotating Cube */}
+                    <div className="cube-container mb-8">
+                        <div className="cube">
+                            <div className="cube-face front">🤖</div>
+                            <div className="cube-face back">💊</div>
+                            <div className="cube-face right">🏥</div>
+                            <div className="cube-face left">📊</div>
+                            <div className="cube-face top">✨</div>
+                            <div className="cube-face bottom">💬</div>
+                        </div>
+                    </div>
+
+                    {/* Assistant Name and Tagline */}
+                    <h1 className="text-6xl md:text-7xl font-black text-gray-800 mb-4">
+                        AI Smart Assistant
+                    </h1>
+                    <p className="text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                        Your intelligent companion for health insights and career growth
+                    </p>
+
+                    {/* Call to Action */}
+                    {!isAuthenticated && (
+                        <div className="flex gap-4 justify-center">
+                            <Link to="/register">
+                                <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-lg font-semibold rounded-xl hover:shadow-2xl transform hover:scale-105 transition-all">
+                                    Get Started Free
+                                </button>
+                            </Link>
+                            <Link to="/symptom-checker">
+                                <button className="px-8 py-4 bg-white text-gray-700 text-lg font-semibold rounded-xl border-2 border-gray-300 hover:border-purple-500 hover:shadow-xl transform hover:scale-105 transition-all">
+                                    Try Demo
+                                </button>
+                            </Link>
+                        </div>
+                    )}
                 </div>
+            </section>
 
-                <div className="container mx-auto px-4 relative z-10">
-                    <motion.div
-                        className="text-center max-w-5xl mx-auto"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                    >
-                        <motion.div variants={itemVariants} className="mb-6">
-                            <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium mb-6">
-                                ✨ AI-Powered Healthcare Platform
-                            </span>
-                        </motion.div>
+            {/* Feature Boxes Section */}
+            <section className="py-16">
+                <div className="container mx-auto px-6">
+                    <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
+                        Choose Your Feature
+                    </h2>
 
-                        <motion.h1
-                            variants={itemVariants}
-                            className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-tight"
-                        >
-                            Your Smart
-                            <span className="block bg-gradient-to-r from-yellow-200 to-pink-200 bg-clip-text text-transparent">
-                                AI Assistant
-                            </span>
-                        </motion.h1>
-
-                        <motion.p
-                            variants={itemVariants}
-                            className="text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed"
-                        >
-                            Leverage cutting-edge AI for symptom analysis, intelligent conversations,
-                            and resume optimization—all in one powerful platform
-                        </motion.p>
-
-                        <motion.div
-                            variants={itemVariants}
-                            className="flex gap-4 justify-center flex-wrap"
-                        >
-                            {isAuthenticated ? (
-                                <Link to="/dashboard">
-                                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                        <Button variant="primary" size="lg" className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-2xl">
-                                            Go to Dashboard →
-                                        </Button>
-                                    </motion.div>
-                                </Link>
-                            ) : (
-                                <>
-                                    <Link to="/register">
-                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                            <Button variant="primary" size="lg" className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-2xl">
-                                                Get Started Free
-                                            </Button>
-                                        </motion.div>
-                                    </Link>
-                                    <Link to="/symptom-checker">
-                                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                            <Button variant="outline" size="lg" className="bg-white/10 backdrop-blur-md text-white border-2 border-white/30 hover:bg-white/20 px-8 py-4 text-lg font-semibold">
-                                                Try Demo
-                                            </Button>
-                                        </motion.div>
-                                    </Link>
-                                </>
-                            )}
-                        </motion.div>
-                    </motion.div>
-                </div>
-            </motion.section>
-
-            {/* Features Section */}
-            <section className="py-24 bg-gray-50">
-                <div className="container mx-auto px-4">
-                    <motion.div
-                        className="text-center mb-16"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-                            Powerful AI Features
-                        </h2>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            Everything you need to leverage AI for health and career
-                        </p>
-                    </motion.div>
-
-                    <motion.div
-                        className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto"
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                    >
+                    {/* Feature Boxes Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                         {features.map((feature, index) => (
-                            <motion.div
+                            <Link
+                                to={feature.link}
                                 key={index}
-                                variants={itemVariants}
-                                whileHover={{ y: -10 }}
-                                transition={{ type: "spring", stiffness: 300 }}
+                                className="block group"
                             >
-                                <Link to={feature.link} className="block h-full">
-                                    <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-gray-100">
-                                        <div className={`w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-lg transform hover:rotate-6 transition-transform`}>
-                                            {feature.icon}
-                                        </div>
-
-                                        <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                                            {feature.title}
-                                        </h3>
-
-                                        <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                                            {feature.description}
-                                        </p>
-
-                                        <div className="flex items-center text-purple-600 font-semibold group">
-                                            Learn More
-                                            <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                            </svg>
-                                        </div>
+                                <div className={`${feature.bgColor} ${feature.borderColor} border-2 rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer`}>
+                                    {/* Icon with Gradient Background */}
+                                    <div className={`w-20 h-20 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center text-4xl mb-6 mx-auto shadow-lg group-hover:rotate-12 transition-transform`}>
+                                        {feature.icon}
                                     </div>
-                                </Link>
-                            </motion.div>
+
+                                    {/* Feature Title */}
+                                    <h3 className="text-2xl font-bold text-gray-800 mb-3 text-center">
+                                        {feature.title}
+                                    </h3>
+
+                                    {/* Feature Description */}
+                                    <p className="text-gray-600 text-center text-lg leading-relaxed">
+                                        {feature.description}
+                                    </p>
+
+                                    {/* Click Indicator */}
+                                    <div className="mt-6 text-center">
+                                        <span className={`inline-flex items-center gap-2 text-transparent bg-clip-text bg-gradient-to-r ${feature.color} font-semibold group-hover:gap-3 transition-all`}>
+                                            Get Started
+                                            <svg className="w-4 h-4 text-purple-600 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </Link>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* Stats Section */}
-            <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600">
-                <div className="container mx-auto px-4">
-                    <motion.div
-                        className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                    >
-                        {[
-                            { number: '10K+', label: 'Symptoms Analyzed' },
-                            { number: '50K+', label: 'AI Conversations' },
-                            { number: '5K+', label: 'Resumes Improved' }
-                        ].map((stat, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1, type: "spring" }}
-                            >
-                                <div className="text-6xl font-black text-white mb-2">{stat.number}</div>
-                                <div className="text-xl text-white/90">{stat.label}</div>
-                            </motion.div>
-                        ))}
-                    </motion.div>
+            <section className="py-16 bg-white">
+                <div className="container mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center max-w-4xl mx-auto">
+                        <div>
+                            <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-500 mb-2">
+                                10K+
+                            </div>
+                            <div className="text-xl text-gray-600">Symptoms Analyzed</div>
+                        </div>
+                        <div>
+                            <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 mb-2">
+                                50K+
+                            </div>
+                            <div className="text-xl text-gray-600">AI Conversations</div>
+                        </div>
+                        <div>
+                            <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500 mb-2">
+                                5K+
+                            </div>
+                            <div className="text-xl text-gray-600">Resumes Improved</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             {/* Disclaimer */}
-            <section className="py-16 bg-yellow-50">
-                <div className="container mx-auto px-4">
-                    <motion.div
-                        className="max-w-4xl mx-auto bg-white border-2 border-yellow-400 rounded-2xl p-8 shadow-lg"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                    >
+            <section className="py-12 bg-yellow-50">
+                <div className="container mx-auto px-6">
+                    <div className="max-w-4xl mx-auto bg-white border-2 border-yellow-400 rounded-2xl p-6 shadow-lg">
                         <div className="flex items-start gap-4">
-                            <div className="text-5xl">⚠️</div>
+                            <div className="text-4xl">⚠️</div>
                             <div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-3">Important Medical Disclaimer</h3>
-                                <p className="text-gray-700 text-lg leading-relaxed">
-                                    This platform is an educational project and NOT a substitute for professional medical advice.
-                                    Always consult qualified healthcare professionals for medical concerns.
+                                <h3 className="text-xl font-bold text-gray-800 mb-2">Medical Disclaimer</h3>
+                                <p className="text-gray-700">
+                                    This is an educational project. Always consult qualified healthcare professionals for medical advice.
                                 </p>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
+
         </div>
     );
 };
