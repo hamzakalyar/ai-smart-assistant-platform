@@ -158,8 +158,10 @@ Example:
 - They'll be grouped under "Authentication" in the API docs
 """
 
+from routes import auth
+
+app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 # TODO: Uncomment as we create each router
-# app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 # app.include_router(symptoms.router, prefix="/api/symptoms", tags=["Symptom Checker"])
 # app.include_router(chatbot.router, prefix="/api/chatbot", tags=["Chatbot"])
 # app.include_router(resume.router, prefix="/api/resume", tags=["Resume Analyzer"])
