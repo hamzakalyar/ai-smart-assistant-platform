@@ -37,36 +37,40 @@ const Home = () => {
     ];
 
     return (
-        <div className="space-y-16">
-            {/* Hero Section */}
-            <section className="text-center py-16">
+        <div className="space-y-20">
+            {/* Hero Section with animations */}
+            <section className="text-center py-20 animate-fade-in">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-6">
+                    <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
                         Your AI-Powered
-                        <span className="block mt-2 bg-gradient-primary bg-clip-text text-transparent">
+                        <span className="block mt-3 gradient-text animate-float" style={{
+                            background: 'linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent'
+                        }}>
                             Smart Assistant
                         </span>
                     </h1>
-                    <p className="text-xl text-gray-600 mb-8">
+                    <p className="text-xl md:text-2xl text-white/90 mb-10 drop-shadow-md">
                         Leverage cutting-edge AI for symptom analysis, intelligent conversations,
-                        and resume optimization—all in one platform. human
+                        and resume optimization—all in one platform.
                     </p>
-                    <div className="flex gap-4 justify-center">
+                    <div className="flex gap-4 justify-center flex-wrap">
                         {isAuthenticated ? (
-                            <Link to="/dashboard">
-                                <Button variant="primary" size="lg">
-                                    Go to Dashboard
+                            <Link to="/dashboard" className="animate-slide-in stagger-1">
+                                <Button variant="primary" size="lg" className="text-lg px-8 py-4 hover-lift">
+                                    Go to Dashboard →
                                 </Button>
                             </Link>
                         ) : (
                             <>
-                                <Link to="/register">
-                                    <Button variant="primary" size="lg">
+                                <Link to="/register" className="animate-slide-in stagger-1">
+                                    <Button variant="primary" size="lg" className="text-lg px-8 py-4 hover-lift">
                                         Get Started Free
                                     </Button>
                                 </Link>
-                                <Link to="/symptom-checker">
-                                    <Button variant="outline" size="lg">
+                                <Link to="/symptom-checker" className="animate-slide-in stagger-2">
+                                    <Button variant="outline" size="lg" className="text-lg px-8 py-4 bg-white/90 backdrop-blur hover-lift">
                                         Try Symptom Checker
                                     </Button>
                                 </Link>
@@ -76,24 +80,30 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Features Grid */}
-            <section>
-                <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+            {/* Features Grid with stagger animations */}
+            <section className="animate-fade-in">
+                <h2 className="text-4xl font-bold text-center text-white mb-4 drop-shadow-lg">
                     Powerful AI Features
                 </h2>
+                <p className="text-center text-white/80 mb-12 text-lg">
+                    Everything you need to leverage AI for health and career
+                </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {features.map((feature, index) => (
-                        <Link to={feature.link} key={index}>
-                            <Card hover className="h-full">
-                                <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center text-3xl mb-4`}>
+                        <Link to={feature.link} key={index} className={`animate-fade-in stagger-${index + 1}`}>
+                            <Card hover className="h-full group cursor-pointer hover-lift">
+                                <div className={`w-20 h-20 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                                     {feature.icon}
                                 </div>
-                                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-3 group-hover:text-primary-600 transition-colors">
                                     {feature.title}
                                 </h3>
-                                <p className="text-gray-600">
+                                <p className="text-gray-600 text-lg leading-relaxed">
                                     {feature.description}
                                 </p>
+                                <div className="mt-4 text-primary-600 font-medium flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    Explore <span className="group-hover:translate-x-1 transition-transform">→</span>
+                                </div>
                             </Card>
                         </Link>
                     ))}
